@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log in
+{% endblock %}
+
+{% block main %}
+    <div class="textContainer"><h2>Camping</h2>
+        <p>The camping area at Mogotabo's community is a project that still in developement. The objectives are to give te possibility to the community to get some extra incomes to finance
+            they're other projects and the option for an economic activity for the people of the community. As well, to get the local community and the climbing community in contact and interaction.
+            We belive that climbers and local communities must not be sepparate and we want to encourage the cultural exchange between people from all over the world.
+        </p>
+        <p>
+            As a tool for easier managmente of the camping, we incorporate a booking system in the Del cobre climbing's website that would be easily access by the users and admins to have a control and history
+            of the bookings of people visiting the camping area.
+        </p>
+    </div>
+
+    <div class ="container-calendar">
+        <div class="box">
+                <form action="/login" method="post">
+                    <div class="mb-3">
+                        <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="username" name="username" required placeholder="Username" type="text">
+                    </div>
+                    <div class="mb-3">
+                        <input class="form-control mx-auto w-auto" id="password" name="password" required placeholder="Password" type="password">
+                    </div>
+                    <button class="btn btn-primary" type="submit">Log In</button>
+                </form>
+    </div>
+
+{% endblock %}

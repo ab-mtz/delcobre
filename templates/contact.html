@@ -1,0 +1,93 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Contact
+    {% endblock %}
+
+{% block main %}
+  <!--Flash -->
+  {% block content %}
+  {% with messages = get_flashed_messages() %}
+      {% if messages %}
+          {% for message in messages %}
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              {{ message }}
+          </div>
+          {% endfor %}
+      {% endif %}
+  {% endwith %}
+  {% endblock %}
+  <!-- Modal -->
+  <div class="modal fade" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        </div>
+        <div class="modal-body">
+          <form  action="/contact" method="post">
+            <div class="form-group">
+              {% if not session["user_id"] %}
+                  <label for="nameL" class="col-form-label">Name:</label>
+                  <input name ="name" type="text" class="form-control" id="name" required autocomplete="off">
+                  <label for="emailL" class="col-form-label">E-mail:</label>
+                  <input name ="email" type="text" class="form-control" id="email" required autocomplete="off">
+              {% else %}
+                {% for user in userInfo %}
+                  <label for="name" class="col-form-label">Name:</label>
+                  <input name ="name" type="text" class="form-control" id="name" value="{{ user.name }}">
+                  <label for="email" class="col-form-label">E-mail:</label>
+                  <input name ="email" type="text" class="form-control" id="email" value="{{ user.email }}">
+                {% endfor %}
+              {% endif %}
+
+              <label for="subject" class="col-form-label">Subject:</label>
+              <input name ="subject" type="text" class="form-control" id="subject" required autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label for="message-text" class="col-form-label">Message:</label>
+              <textarea name ="message" class="form-control" id="message-text" required autocomplete="off"></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="closeToggle" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" id="sendMsg" class="btn btn-primary">Send message</button>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-image">
+        <div class="hero-text">
+            <h2 class ="bckg">Send us a message!</h2>
+            <div class="inputCal">
+              <button type="button" id ="contactBtn" class="btn" data-toggle="modal" data-target="#modal">Contact</button>
+            </div>
+          </div>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+
+// Get a reference to the modal element
+const myModal = document.getElementById('contactModal');
+const modal = new bootstrap.Modal(myModal);
+
+// Buttons
+const contactBtn = document.getElementById('contactBtn');
+const closeM = document.getElementById('closeToggle');
+const sendMsg = document.getElementById('sendMsg');
+
+//Functions
+contactBtn.addEventListener('click', () => {
+  modal.show();
+});
+
+closeM.addEventListener('click', () => {
+  modal.hide();
+});
+
+</script>
+
+{% endblock %}

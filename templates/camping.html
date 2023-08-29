@@ -1,0 +1,85 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Camping
+{% endblock %}
+
+{% block main %}
+<!--Flash -->
+    {% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{ message }}
+            </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    {% endblock %}
+    <div class="container"><h2>Camping</h2>
+        {% if not session["user_id"] %}
+        <div >
+            <img class="imgcont" src="static/community6.jpg" alt="community3">
+            <img class="imgcont" src="static/community3.jpg" alt="community3">
+        </div>
+        {% endif %}
+        <p>The camping area at Mogotabo's community is a project that is still in development. The objectives are to provide the community with additional income to finance their other projects and to offer an economic activity for the people of the community. Additionally, it aims to facilitate contact and interaction between the local community and the climbing community. We believe that climbers and local communities should not be separate, and we want to encourage cultural exchange among people from all over the world.
+        </p>
+        <p>As a tool for easier management of the camping area, we have incorporated a booking system on the Del Cobre Climbing website. This system can be easily accessed by users and admins to maintain control and a history of bookings made by people visiting the camping area.
+        </p>
+    </div>
+
+    <div class ="container-calendar">
+        <div class="box">
+            {% if not session["user_id"] %}
+            <div>
+                <a class="spaced" href="/register">Register</a>
+                <a class="spaced" href="/login">Log in</a>
+            </div>
+            {% else %}
+                {% if not booked %}
+                    <h3> Book your camping spot</h3>
+                    <div class="inputCal">
+                        <form action="/camping" method="post">
+                            <p><input id="startDate" name="startDate" type="date" required min="" placeholder="Start date"></p>
+                            <p><input id="endDate" name="endDate" type="date" required placeholder="End date"></p>
+                            <p><label>Number of persons:</label></p>
+                            <p><input id="number" name="number" required type="number" min="1" placeholder="0"></p>
+                            <div class="btncont"><button type="submit" name="delUser" class="btn">Send</button></div>
+                        </form>
+                    </div>
+                {% else %}
+                    <h3>Thanks for your booking</h3>
+                    <div>
+                    <table class="table table-bordered table-dark">
+                        <thead>
+                            <tr>
+                            <th scope="col">Start Date</th>
+                            <th scope="col">End Date</th>
+                            <th scope="col">Persons</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for book in booked %}
+                            <tr>
+                                <td>{{ book.startDate }}</td>
+                                <td>{{ book.endDate }}</td>
+                                <td>{{ book.number }}</td>
+                            </tr>
+                        {% endfor %}
+
+                        </table>
+                        <div class="btncont">
+                            <form action="/delete" method="post">
+                                <button type="submit" class="btn">Delete booking</button></div>
+                {% endif %}
+                            </form>
+                            <a class="spaced" href="/logout">Log Out</a>
+                        </div>
+                    </div>
+
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

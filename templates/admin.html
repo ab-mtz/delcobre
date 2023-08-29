@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Admin
+{% endblock %}
+
+{% block main %}
+
+ <!--Flash -->
+ {% block content %}
+ {% with messages = get_flashed_messages() %}
+     {% if messages %}
+         {% for message in messages %}
+         <div class="alert alert-warning alert-dismissible fade show" role="alert">
+             {{ message }}
+         </div>
+         {% endfor %}
+     {% endif %}
+ {% endwith %}
+{% endblock %}
+
+<div class ="container-calendar">
+    <div class="box">
+    {% if not session["user_id"] %}
+        <form action="/admin" method="post">
+            <p>
+                <input autocomplete="off" autofocus  id="adminName" name="adminName" required placeholder="Username" type="text">
+            </p>
+            <p>
+                <input  id="password" name="password" required placeholder="Password" type="password">
+            </p>
+            <button class="btn btn-primary" type="submit">Log In</button>
+        </form>
+    {% else %}
+        <h1>Bookings</h1>
+        <div>
+            <table class="table table-bordered table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Lastname</th>
+                    <th scope="col">E-mail</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">End Date</th>
+                    <th scope="col">Persons</th>
+                    <th scope="col">Booked at</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in bookings %}
+                <tr>
+                    <td>{{ book.id }}</td>
+                    <td>{{ book.username }}</td>
+                    <td>{{ book.name }}</td>
+                    <td>{{ book.lastName }}</td>
+                    <td>{{ book.email }}</td>
+                    <td>{{ book.startDate }}</td>
+                    <td>{{ book.endDate }}</td>
+                    <td>{{ book.number }}</td>
+                    <td>{{ book.timestamp }}</td>
+                    <td><form action="/delete" method="post">
+                            <input type="hidden" name="bookingID" value="{{ book.id }}">
+                            <button type="submit" name="delAdmin" class="btn">Delete booking</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <p><h2>New booking</h2></p>
+        <div>
+            <form action="/adminBook" method="post">
+                <p><input id="name" name="name" type="text" required  autocomplete="off" placeholder="Name"></p>
+                <p><input id="email" name="email" type="text" required  autocomplete="off" placeholder="E-mail"></p>
+                <p><input id="startDate" name="startDate" type="date" required min="" placeholder="Start date"></p>
+                <p><input id="endDate" name="endDate" type="date" required placeholder="End date"></p>
+                <p><label>Number of persons:</label></p>
+                <p><input id="number" name="number" required type="number" min="1" placeholder="0"></p>
+                <div class="btncont"><button type="submit" class="btn">Send</button></div>
+            </form>
+        </div>
+    <div><a href="/logout">Log Out</a></div>
+    </div>
+    {% endif %}
+
+{% endblock %}
