@@ -106,8 +106,7 @@ This file contains all the backend implementation and logic of the website, usin
 This database stores information about users, admins, and bookings.
 
 ### SCHEMA:
-
-´´´sql
+```sql
 CREATE TABLE users (
 id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 username TEXT NOT NULL UNIQUE,
@@ -133,7 +132,7 @@ id INTEGER,
 adminName TEXT,
 hash TEXT NOT NULL
 );
-´´´
+```
 
 - helpers.py
 This file provides functions for app.py, like "login_required."
