@@ -140,7 +140,7 @@ This file provides functions for app.py, like "login_required."
 
 ### DESIGN CHOICES
 
-At the beginning of the project, I wasn't sure how to best implement the booking function on the site, such as how many HTML documents to use or how many routes to implement in the backend. I tried to include the most functionalities in fewer HTML documents and implement some logic with Jinja syntax to display certain content based on conditions in the backend. I also used routes with shared functions for actions coming from both the user and admin interfaces, like the logout route or the delete booking route.
+####At the beginning of the project, I wasn't sure how to best implement the booking function on the site, such as how many HTML documents to use or how many routes to implement in the backend. I tried to include the most functionalities in fewer HTML documents and implement some logic with Jinja syntax to display certain content based on conditions in the backend. I also used routes with shared functions for actions coming from both the user and admin interfaces, like the logout route or the delete booking route.
 
 Additionally, due to my lack of experience in database design, I had to redesign the database of my project when I realized I needed to store more fields.
 
